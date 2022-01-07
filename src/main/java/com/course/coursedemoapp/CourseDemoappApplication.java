@@ -7,6 +7,8 @@ import model.CompanyQuoteDto;
 import model.CompanyQuoteEntity;
 import model.CompanyQuoteRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,13 +33,13 @@ import java.net.URISyntaxException;
 @EntityScan(basePackages = "model")
 public class CourseDemoappApplication {
 
-    ModelMapper modelMapper = new ModelMapper();
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ModelMapper modelMapper = new ModelMapper();
+    private final Logger logger = LoggerFactory.getLogger(CourseDemoappApplication.class);
 
     @Autowired
     private CompanyQuoteRepository companyQuoteRepository;
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    CompanyDto[] companiesDto;
 
     public static void main(String[] args) {
         SpringApplication.run(CourseDemoappApplication.class, args);
@@ -46,11 +48,11 @@ public class CourseDemoappApplication {
     @Scheduled(initialDelay = 1000, fixedDelay = Long.MAX_VALUE)
     @Async
     public void getCompaniesFromServer() throws URISyntaxException {
-        System.out.println("Updating company info");
+        logger.info("Updating company info");
         String url = "https://sandbox.iexapis.com/stable/ref-data/symbols?token=Tpk_ee567917a6b640bb8602834c9d30e571";
-        companiesDto = restTemplate.getForObject(new URI(url), CompanyDto[].class);
-        System.out.println("Retrieved " + companiesDto.length + " companies");
-        System.out.println("Started query company quote...");
+        CompanyDto[] companiesDto = restTemplate.getForObject(new URI(url), CompanyDto[].class);
+        logger.info("Retrieved " + companiesDto.length + " companies");
+        logger.info("Started query company quote...");
         for (CompanyDto company : companiesDto) {
             if (company.isEnabled()) {
                 createAndSaveQuoteQuery(company);
@@ -65,6 +67,15 @@ public class CourseDemoappApplication {
         CompanyQuoteDto companyQuoteDto = restTemplate.getForObject(url, CompanyQuoteDto.class);
         CompanyQuoteEntity companyQuoteEntity = convertToEntity(companyQuoteDto);
         companyQuoteRepository.save(companyQuoteEntity);
+    }
+
+    @Async
+    @Scheduled(fixedDelay = 5000)
+    public void showTopFive() {
+        logger.info("Top five companies by volume");
+        for (CompanyQuoteEntity company: companyQuoteRepository.findTopFiveHighestVolume()) {
+            logger.info(company.getCompanyName() + " volume: " + company.getVolume());
+        }
     }
 
     private CompanyQuoteEntity convertToEntity(CompanyQuoteDto companyQuoteDto) {
