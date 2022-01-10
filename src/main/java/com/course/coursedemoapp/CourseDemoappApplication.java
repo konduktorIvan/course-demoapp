@@ -50,7 +50,6 @@ public class CourseDemoappApplication {
     }
 
     @Scheduled(initialDelay = 1000, fixedDelay = Long.MAX_VALUE)
-    @Async
     public void getCompaniesFromServer() throws URISyntaxException {
         logger.info("Updating company info");
         String url = "https://sandbox.iexapis.com/stable/ref-data/symbols?token=Tpk_ee567917a6b640bb8602834c9d30e571";
