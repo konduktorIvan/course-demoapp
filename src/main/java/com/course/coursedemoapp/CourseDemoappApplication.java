@@ -24,6 +24,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 @EnableScheduling
@@ -36,6 +38,8 @@ public class CourseDemoappApplication {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ModelMapper modelMapper = new ModelMapper();
     private final Logger logger = LoggerFactory.getLogger(CourseDemoappApplication.class);
+    private CompanyDto[] companiesDto;
+    private final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     @Autowired
     private CompanyQuoteRepository companyQuoteRepository;
@@ -53,28 +57,35 @@ public class CourseDemoappApplication {
         CompanyDto[] companiesDto = restTemplate.getForObject(new URI(url), CompanyDto[].class);
         logger.info("Retrieved " + companiesDto.length + " companies");
         logger.info("Started query company quote...");
+        saveCompanyQueries();
+    }
+
+    @Scheduled (initialDelay = 10000, fixedDelay = Long.MAX_VALUE)
+    public void saveCompanyQueries() throws URISyntaxException {
+        logger.info("Started query company quote...");
         for (CompanyDto company : companiesDto) {
             if (company.isEnabled()) {
                 createAndSaveQuoteQuery(company);
             }
         }
+        getCompaniesFromServer();
     }
 
-    @Async
     public void createAndSaveQuoteQuery(CompanyDto companyDto) {
+        if (companyDto.getSymbol() != null){
         String url = "https://sandbox.iexapis.com/stable/stock/" + companyDto.getSymbol() +
                 "/quote?token=Tpk_ee567917a6b640bb8602834c9d30e571";
         CompanyQuoteDto companyQuoteDto = restTemplate.getForObject(url, CompanyQuoteDto.class);
         CompanyQuoteEntity companyQuoteEntity = convertToEntity(companyQuoteDto);
         companyQuoteRepository.save(companyQuoteEntity);
+        }
     }
 
-    @Async
     @Scheduled(fixedDelay = 5000)
     public void showTopFive() {
-        logger.info("Top five companies by volume");
+        System.out.println("Top five companies by volume");
         for (CompanyQuoteEntity company: companyQuoteRepository.findTopFiveHighestVolume()) {
-            logger.info(company.getCompanyName() + " volume: " + company.getVolume());
+            System.out.println(company.getCompanyName() + " volume: " + company.getVolume());
         }
     }
 
