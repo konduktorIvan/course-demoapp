@@ -1,4 +1,4 @@
-package model;
+package com.course.coursedemoapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

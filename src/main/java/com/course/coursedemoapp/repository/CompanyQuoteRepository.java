@@ -1,5 +1,6 @@
-package model;
+package com.course.coursedemoapp.repository;
 
+import com.course.coursedemoapp.entity.CompanyQuoteEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

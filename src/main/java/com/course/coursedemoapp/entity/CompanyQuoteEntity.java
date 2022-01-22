@@ -1,9 +1,6 @@
-package model;
+package com.course.coursedemoapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,12 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+
+@Data
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "company_quote")
+@Table(name = "company_quotes")
 public class CompanyQuoteEntity {
 
     @Id
