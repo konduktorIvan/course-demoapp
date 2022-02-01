@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "company_quotes")
+@Table(name = "company_quote")
 public class CompanyQuoteEntity {
 
     @Id
@@ -29,7 +29,7 @@ public class CompanyQuoteEntity {
     @Column
     private String calculationPrice;
 
-    @Column(name = "company_change")
+    @Column
     private double change;
 
     @Column

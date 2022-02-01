@@ -1,5 +1,7 @@
 package com.course.coursedemoapp.service;
 
-public interface CompanyService {
+import java.util.concurrent.ExecutionException;
 
+public interface CompanyService {
+     void getCompaniesFromAPI() throws ExecutionException, InterruptedException;
 }
