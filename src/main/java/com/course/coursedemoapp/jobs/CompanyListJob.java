@@ -2,6 +2,7 @@ package com.course.coursedemoapp.jobs;
 
 import com.course.coursedemoapp.dto.CompanyDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 @Component
 @Slf4j
 public class CompanyListJob implements Runnable {
+    @Autowired
     RestTemplate restTemplate;
 
     private CompanyDto[] companiesDto;

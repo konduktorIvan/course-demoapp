@@ -42,7 +42,7 @@ public class CompanyQuoteJob implements Runnable {
         }
         CompanyQuoteEntity companyQuoteEntity = convertToEntity(companyQuoteDto);
 
-        companyQuoteRepository.save(companyQuoteEntity);
+//        companyQuoteRepository.save(companyQuoteEntity);
     }
 
     private CompanyQuoteEntity convertToEntity(CompanyQuoteDto companyQuoteDto) {
