@@ -34,6 +34,11 @@ public class AppConfig {
     }
 
     @Bean
+    public ExecutorService companyQuoteExecutorService(){
+        return Executors.newFixedThreadPool(numberOfThreads);
+    }
+
+    @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

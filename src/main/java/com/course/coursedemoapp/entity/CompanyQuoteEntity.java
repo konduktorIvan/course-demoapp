@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "company_quote")
+@Table(name = "company_quotes")
 public class CompanyQuoteEntity {
 
     @Id
@@ -23,104 +23,104 @@ public class CompanyQuoteEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
-    private Double avgTotalVolume;
+    @Column(name = "avg_total_volume")
+    private double avgTotalVolume;
 
-    @Column
+    @Column(name = "calculation_price")
     private String calculationPrice;
 
-    @Column
+    @Column(name = "change_value")
     private double change;
 
-    @Column
-    private Double changePercent;
+    @Column(name = "change_percent")
+    private double changePercent;
 
-    @Column
-    private Double close;
+    @Column(name = "close")
+    private double close;
 
-    @Column
+    @Column(name = "close_source")
     private String closeSource;
 
-    @Column
-    private Double closeTime;
+    @Column(name = "close_time")
+    private double closeTime;
 
-    @Column
+    @Column(name = "company_name")
     private String companyName;
 
-    @Column
+    @Column(name = "currency")
     private String currency;
 
-    @Column
-    private Double delayedPrice;
+    @Column(name = "delayed_price")
+    private double delayedPrice;
+
+    @Column(name = "delayed_price_time")
+    private double delayedPriceTime;
+
+    @Column(name = "extended_change")
+    private double extendedChange;
+
+    @Column(name = "extended_change_percent")
+    private double extendedChangePercent;
+
+    @Column(name = "extended_price")
+    private double extendedPrice;
+
+    @Column(name = "extended_price_time")
+    private double extendedPriceTime;
 
     @Column
-    private Double delayedPriceTime;
-
-    @Column
-    private Double extendedChange;
-
-    @Column
-    private Double extendedChangePercent;
-
-    @Column
-    private Double extendedPrice;
-
-    @Column
-    private Double extendedPriceTime;
-
-    @Column
-    private Double high;
+    private double high;
 
     @Column
     private String highSource;
 
     @Column
-    private Double highTime;
+    private double highTime;
 
     @Column
-    private Double iexAskPrice;
+    private double iexAskPrice;
 
     @Column
-    private Double iexAskSize;
+    private double iexAskSize;
 
     @Column
-    private Double iexBidPrice;
+    private double iexBidPrice;
 
     @Column
-    private Double iexBidSize;
+    private double iexBidSize;
 
     @Column
-    private Double iexClose;
+    private double iexClose;
 
     @Column
-    private Double iexCloseTime;
+    private double iexCloseTime;
 
     @Column
-    private Double iexLastUpdated;
+    private double iexLastUpdated;
 
     @Column
-    private Double iexMarketPercent;
+    private double iexMarketPercent;
 
     @Column
-    private Double iexOpen;
+    private double iexOpen;
 
     @Column
-    private Double iexOpenTime;
+    private double iexOpenTime;
 
     @Column
-    private Double iexRealtimePrice;
+    private double iexRealtimePrice;
 
     @Column
-    private Double iexRealtimeSize;
+    private double iexRealtimeSize;
 
     @Column
-    private Double iexVolume;
+    private double iexVolume;
 
     @Column
-    private Double lastTradeTime;
+    private double lastTradeTime;
 
     @Column
-    private Double latestPrice;
+    private double latestPrice;
 
     @Column
     private String latestSource;
@@ -129,46 +129,46 @@ public class CompanyQuoteEntity {
     private String latestTime;
 
     @Column
-    private Double latestUpdate;
+    private double latestUpdate;
 
     @Column
-    private Double latestVolume;
+    private double latestVolume;
 
     @Column
-    private Double low;
+    private double low;
 
     @Column
     private String lowSource;
 
     @Column
-    private Double lowTime;
+    private double lowTime;
 
     @Column
-    private Double marketCap;
+    private double marketCap;
 
     @Column
-    private Double oddLotDelayedPrice;
+    private double oddLotDelayedPrice;
 
     @Column
-    private Double oddLotDelayedPriceTime;
+    private double oddLotDelayedPriceTime;
 
     @Column
-    private Double open;
+    private double open;
 
     @Column
-    private Double openTime;
+    private double openTime;
 
     @Column
     private String openSource;
 
     @Column
-    private Double peRatio;
+    private double peRatio;
 
     @Column
-    private Double previousClose;
+    private double previousClose;
 
     @Column
-    private Double previousVolume;
+    private double previousVolume;
 
     @Column
     private String primaryExchange;
@@ -177,16 +177,16 @@ public class CompanyQuoteEntity {
     private String symbol;
 
     @Column
-    private Double volume;
+    private double volume;
 
     @Column
-    private Double week52High;
+    private double week52High;
 
     @Column
-    private Double week52Low;
+    private double week52Low;
 
     @Column
-    private Double ytdChange;
+    private double ytdChange;
 
     @Column
     private boolean isUSMarketOpen;
